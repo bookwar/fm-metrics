@@ -30,24 +30,13 @@ class Message:
         return { label: self.__getattribute__(label) for label in self.LABELS}
 
 
-
 MessageCounter = Counter(
     'messages',
     'Count messages',
     Message.LABELS,
 )
 
-
-def main_callback(message):
-    """
-    Main callback for the message queue.
-
-    Increments counter for messages by labels.
-
-    Args:
-        message (fedora_messaging.message.Message): The message we received
-            from the queue.
-    """
+def count_message(message):
     m = Message(message)
-
     MessageCounter.labels(**m.labels()).inc()
+
