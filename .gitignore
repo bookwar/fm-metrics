@@ -1,3 +1,4 @@
 *.pid
 *~
 __pycache__
+local_conf.py
