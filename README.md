@@ -20,4 +20,4 @@ Edit as needed.
 Run
 ===
 
-    PYTHONPATH=. twisted -n y app.py
+    PYTHONPATH=. twistd -n -y app.py
