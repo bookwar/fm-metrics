@@ -17,6 +17,7 @@ def main_callback(message):
 
     count_message(message)
 
+
 def add_fm_service(application):
     fm_service = FMService(conf.AMQP_URL)
     fm_service._service.factory.consume(

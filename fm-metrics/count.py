@@ -7,22 +7,22 @@ logger = logging.getLogger(__name__)
 
 COUNTERS_DATA = [
     {
-        'topic': 'org.fedoraproject.prod.buildsys.tag',
-        'name': 'fedora_tag',
-        'description': "Count Fedora tag messages",
-        'labels': ['tag'],
-     },
-    {
-        'topic': 'org.centos.prod.buildsys.tag',
-        'name': 'centos_tag',
-        'description': "Count CentOS tag messages",
-        'labels': ['tag'],
+        "topic": "org.fedoraproject.prod.buildsys.tag",
+        "name": "fedora_tag",
+        "description": "Count Fedora tag messages",
+        "labels": ["tag"],
     },
     {
-        'topic': 'DEFAULT',
-        'name': 'simple',
-        'description': "Count all messages",
-        'labels': ['topic'],
+        "topic": "org.centos.prod.buildsys.tag",
+        "name": "centos_tag",
+        "description": "Count CentOS tag messages",
+        "labels": ["tag"],
+    },
+    {
+        "topic": "DEFAULT",
+        "name": "simple",
+        "description": "Count all messages",
+        "labels": ["topic"],
     },
 ]
 
@@ -30,7 +30,7 @@ COUNTERS_DATA = [
 class CounterRegistry:
 
     def __init__(self, counters_data=[]):
-        self.counters={}
+        self.counters = {}
 
         for counter_data in counters_data:
             self.add_counter(**counter_data)
@@ -53,7 +53,8 @@ class CounterRegistry:
         if topic in self.counters:
             return self.counters[topic]
         else:
-            return self.counters['DEFAULT']
+            return self.counters["DEFAULT"]
+
 
 CR = CounterRegistry(COUNTERS_DATA)
 
@@ -61,13 +62,11 @@ CR = CounterRegistry(COUNTERS_DATA)
 def get_labels(message, labels):
     result = {}
     for label in labels:
-        result[label] = getattr(message,
-                                label,
-                                message.body.get(label,
-                                                 message._headers.get(label, "")
-                                                 )
-                                )
+        result[label] = getattr(
+            message, label, message.body.get(label, message._headers.get(label, ""))
+        )
     return result
+
 
 def count_message(message):
     message_counter = CR.get_counter(message.topic)
